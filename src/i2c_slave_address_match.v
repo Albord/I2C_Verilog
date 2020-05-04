@@ -24,6 +24,7 @@ begin
     	if (!Rst) AddressFound = 1'b0;
   	else if (Enable) begin
 		if (Mode) AddressFound = 1'b0; //Falta añadir cosas
+		else AddressFound = 1'b0; //Falta añadir cosas
 	end
 end
 
