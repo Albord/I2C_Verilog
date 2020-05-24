@@ -1,4 +1,4 @@
-module I2C_SHIFT_REGISTER #( parameter LENGTH)(Clk, InputBit, Buffer);
+module I2C_SHIFT_REGISTER #( parameter LENGTH)(Clk, Enable, InputBit, Buffer);
 	
 	input Clk;
 	input Enable; 
@@ -8,10 +8,10 @@ module I2C_SHIFT_REGISTER #( parameter LENGTH)(Clk, InputBit, Buffer);
 always @(posedge Clk)
 begin
     	//if (!Rst) Buffer = 1'b0; En este caso no necesitamos un reset
-
+  	else if (Enable) begin
 		//OutputBit <= Buffer[LENGTH - 1: LENGTH - 2]; 
-	Buffer <= {Buffer[LENGTH - 1: LENGTH - 2], InputBit};
-	
+		Buffer <= {Buffer[LENGTH - 1: LENGTH - 2], InputBit};
+	end
 end
 
 endmodule
