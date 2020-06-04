@@ -9,7 +9,7 @@ module I2C_SHIFT_REGISTER #( parameter LENGTH)(Clk, InputBit, Buffer);
     	//if (!Rst) Buffer = 1'b0; En este caso no necesitamos un reset
 
 		//OutputBit <= Buffer[LENGTH - 1: LENGTH - 2]; 
-	Buffer = {Buffer[LENGTH - 1: LENGTH - 2], InputBit};
+	Buffer <= {Buffer[LENGTH - 1: LENGTH - 2], InputBit};
 	
 
 endmodule
