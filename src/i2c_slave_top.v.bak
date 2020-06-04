@@ -1,10 +1,10 @@
-module I2C_SLAVE_TOP #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parameter NBYTES)(SDA, SCL, AddressList, DirectionBuffer, InputBuffer, OutputBuffer);
+module I2C_SLAVE_TOP #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parameter NBYTES)(SDA, SCL, DirectionBuffer, InputBuffer, OutputBuffer);
 
 input SDA;
 input SCL;
-input wire [((ADDRESSLENGTH)*ADDRESSNUM) - 1: 0] AddressList;
+input wire [(ADDRESSLENGTH-1): 0] DirectionBuffer;
 reg HaveAddress;
-output reg [(ADDRESSLENGTH-1): 0] DirectionBuffer; //Buffer para guardar la dirección que solicita el master
+reg [(ADDRESSLENGTH-1): 0] DirectionBuffer; //Buffer para guardar la dirección que solicita el master
 output reg [7:0]InputBuffer; //Bufer donde irán todos los datos guardadosa a la memoria
 output reg [7:0]OutputBuffer;
 reg RorW;

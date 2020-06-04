@@ -20,12 +20,6 @@ wire [7:0]InputBuffer = 8'b0;
 wire [((ADDRESSLENGTH)*ADDRESSNUM) - 1: 0]AddressList = 24'b000011110000111000011000;
 
 
-
- 	
-
-pullup (SDA); 
-pullup (SCLK); 
-
 I2C_SLAVE_MEMORY #( ADDRESSLENGTH, ADDRESSNUM, NBYTES) i2c_slave_memory(Enable, Mode, RorW, DirectionBuffer, InputBuffer, OutputBuffer, AddressFound, AddressList, Data);
 
 

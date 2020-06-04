@@ -7,28 +7,26 @@
 
 */
 
-module I2C_SLAVE_MEMORY #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parameter NBYTES)(Enable, Mode, RorW, DirectionBuffer, InputBuffer, OutputBuffer, AddressFound, AddressList, Data, LocalAddressID);
+module I2C_SLAVE_MEMORY #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parameter NBYTES)(Enable, RorW, DirectionBuffer, InputBuffer, OutputBuffer, AddressFound, AddressList);
 	input Enable; //
-	input Mode;
 	input RorW;
 	input [((ADDRESSLENGTH)*ADDRESSNUM) - 1: 0]AddressList;
 	output reg AddressFound = 1'b0;
 	input wire [(ADDRESSLENGTH-1): 0] DirectionBuffer;
 	input wire [7:0]InputBuffer;
 	output reg [7:0]OutputBuffer;
-	output reg [8*NBYTES*ADDRESSNUM: 0 ] Data = 1'b0;
-	output integer LocalAddressID = 0;
+	reg [8*NBYTES*ADDRESSNUM: 0 ] Data = 1'b0;
+	integer LocalAddressID = 0;
 	integer ByteCounter = 0;
 	
 
 always @(posedge Enable)//Si se activa el enable, es cuando transferimos los datos del buffer a la memoria
 begin
-	if (Mode) begin //Modo transferencia, intercambiamos datos entre el buffer y los datos de la memoria
-		if (RorW) Data[LocalAddressID*8*NBYTES + (ByteCounter)*(8) +:8] <= InputBuffer;
-		else OutputBuffer <= Data[LocalAddressID*8*NBYTES + (ByteCounter)*(8) +:8];
-		if (ByteCounter < NBYTES - 1) ByteCounter <= ByteCounter + 1;
-		else ByteCounter <= 0;
-	end
+	 //Modo transferencia, intercambiamos datos entre el buffer y los datos de la memoria
+	if (RorW) Data[LocalAddressID*8*NBYTES + (ByteCounter)*(8) +:8] <= InputBuffer;
+	else OutputBuffer <= Data[LocalAddressID*8*NBYTES + (ByteCounter)*(8) +:8];
+	if (ByteCounter < NBYTES - 1) ByteCounter <= ByteCounter + 1;
+	else ByteCounter <= 0;
 end
 
 always@(DirectionBuffer) begin

@@ -1,15 +1,27 @@
 {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v} {0 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v}
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module testbench
-** Error: D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v(48): (vlog-2110) Illegal reference to net "InputBuffer".
+-- Compiling module testslavememory
+-- Compiling module I2C_SLAVE_TOP
+** Error: D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v(31): Identifier must be declared with a port mode: SDA.
+** Error: D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v(31): Identifier must be declared with a port mode: SCL.
+** Error: D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v(31): Identifier must be declared with a port mode: AddressList.
+** Error: D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v(31): Identifier must be declared with a port mode: DirectionBuffer.
+** Error: D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v(31): Identifier must be declared with a port mode: InputBuffer.
+** Error: D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v(31): Identifier must be declared with a port mode: OutputBuffer.
+** Error: (vlog-13069) D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v(92): near "EOF": syntax error, unexpected end of source code.
 
-** Error: D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v(54): (vlog-2110) Illegal reference to net "InputBuffer".
 
-
-} {4.0 5.0 6.0 7.0} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v}
+} {5.0 12.0} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_module.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_module.v}
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 
-} {} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_module.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_module.v}
+} {} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v}
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module I2C_SLAVE_TOP
+
+Top level modules:
+	I2C_SLAVE_TOP
+
+} {} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_top.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_top.v}
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 
 } {} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v}
@@ -19,7 +31,11 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 Top level modules:
 	I2C_SLAVE_ADDRESS_UC
 
-} {} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_top.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_top.v}
+} {} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_memory.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_memory.v}
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module I2C_SLAVE_MEMORY
+
+Top level modules:
+	I2C_SLAVE_MEMORY
 
 } {} {}}
