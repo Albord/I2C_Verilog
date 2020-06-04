@@ -6,62 +6,58 @@
 
 */
 
-module I2C_SLAVE_ADDRESS_UC #( parameter ADDRESSLENGTH, parameter MaxAddress)(SDA, SCL,
-	output reg Start = 1'b0;
-	output reg MasterAddress;
-	integer Counter = 1'b0;//(Hay que hacer el counter de más bits)
-	input reg HaveAddress;
-	reg Buffer[LENGTH || 8 - 1: 0] = 1'b0; // Buffer donde irán todos los datos recibidos, tanto para buscar la dirección como datos a memória
-	reg Status = 1'b0;//Estado 0 cuando el master está solicitando conexión. Estado 1, cuando hay transferencia
-	reg RorW = 1'b0; //Estado 0 lectura, estado 1 escritura
+module I2C_SLAVE_ADDRESS_UC #( parameter ADDRESSLENGTH)(SDA, SCL, HaveAddress, Buffer, RorW, Status, MemoryEnable);
+	
+	input SCL;
+	output reg SDA;
+	input HaveAddress;//Input de la memoria para indicar que el dispositivo tiene la dirección de memoria solicitada
 
-
-	reg NexData = 1'b0;
-always @(posedge SDA) begin
-	if (!SCL) begin //Condición de start
+	output reg [ADDRESSLENGTH || 8 - 1: 0] Buffer = 1'b0; // Buffer donde irán todos los datos recibidos, tanto para buscar la dirección como datos a memória
+	output reg RorW = 1'b0; //Estado 0 lectura, estado 1 escritura
+	output reg Status = 1'b0;//Estado 0 cuando el master está solicitando conexión. Estado 1, cuando hay transferencia
+	output reg MemoryEnable = 1'b0; //Registro para activar la comunicación etre la memoria y la unidad de control
+	reg Start = 1'b0;//Estado para activar el dispositivo slave
+	integer Counter = 1'b0;//Contador de los bits del sda, 
+	
+	
+	
+always @(negedge SDA) begin //Condición de start
+	if (SCL) begin 
 		Counter <= 0;
 		Start <= 1'b1;
 		Status <= 1'b0;
 		RorW <= 1'b0;
+		MemoryEnable <= 1'b0;
 	end
+end
+always @(posedge SDA) begin //Condición de stop
+	if (SCL) Start <= 1'b0;
 end
 always @(posedge SCL) begin
 	if (Start) begin
 
 		if (Status) begin
-			if (Counter < 7) begin//las transferencias son de byte a byte, por lo tanto hay que tener el contador también
-				//
-				if (RorW) SDA <= NextData;//ponemos el siguiente dato para escribir
-				else Buffer[Counter]; //guardamos el dato en el buffer
-				Counter = Counter + 1;
+			if (Counter < 8) begin//las transferencias son de byte a byte, por lo tanto hay que tener el contador también
+				if (!RorW) Buffer[Counter] <= SDA; //guardamos el dato en el buffer ya que estamos recibiendo
+				
 			end
-			if (Counter == 7) begin //fin del byte de datos, hay enviar o recibir un ack y de paso guardamos el buffer en la memoria
-				if (!RorW) SDA <= 1;//modo lectura, enviamos nosotros un ack
-				else (SDA)
-				Counter = 0;
+			if (Counter == 8) begin //fin del byte de datos, hay que mirar si hemos recibido un ack o un nack en el caso de modo escritura
+				if (RorW) MemoryEnable <= SDA; //Si tenemos un 1 es un ack y por lo tanto podemos pedir el siguiente dato
 			end
 		
-
 		end
-
-
-
 		else begin
 			if (Counter < ADDRESSLENGTH) begin //Recibiendo los datos de la dirección de memoria
+				Buffer[Counter] <= SDA;
 				Counter <= Counter + 1;
-				I2C_SHIFT_REGISTER #( ADDRESSLENGTH)(SCL, SDA, Buffer);
+				
 			end
-			
-			else if (Counter == ADDRESSLENGTH) begin
-				/*
-				Si la dirección de memoria pertence a este slave
-				Procedemos a seleccionar el modo de lectura o escritura segun el último bit recibido
-				Ponemos el modo de transferencia y además enviamos un ack
-				*/
-				if (AddressFound) begin
+			if (Counter == ADDRESSLENGTH-1) MemoryEnable <= 1'b1; //Preguntamos a la memoria si disponemos de la dirección
+			else if (Counter == ADDRESSLENGTH) begin //Al siguiente ciclo el master especificará si la tranasferencia es read or write
+				if (HaveAddress) begin //Si disponemos de la dirección, pasamos al modo de transferencia de datos
 					RorW <= SDA;
-					Counter = 0;
-					SDA <= 1;
+					Counter <= 0;
+					SDA <= 1'b1;
 					Status <= 1'b1;
 				end
 			end 
@@ -72,13 +68,21 @@ end
 
 always @(negedge SCL) begin
 /*
-	Enviamos la dirección de la memoria y en el modulo de memoría se comprovará
-	Si esta dirección de memoria pertenence a este slave	
+	El flanco de bajada del clock está destinado para que el slave envíe datos a través del sda, cuando sea necesario
 */
-	if (!Status && Counter ==  ADDRESSLENGTH) MasterAddress <= Buffer[ADDRESSLENGTH:0];
-	if (!Status && RoW && Counter < 8) NextData; <= Buffer[Counter];
 
+	if (Status) begin
+		//En este caso enviamos ráfagas de 8 bits y esperamos a recibir el ack si estamos escribiendo
+		if (Counter < 8) begin 
+			if (RorW) SDA <= Buffer[Counter];
+			Counter <= Counter + 1;	
+		end
+
+		 //fin del byte de datos, hay enviar o recibir un ack y de paso guardamos el buffer en la memoria
+		if (Counter >= 8) begin 
+			if (!RorW) SDA <= 1;//modo lectura, enviamos nosotros un ack
+			Counter <= 0;
+		end
+	end
 end
-
-
 endmodule

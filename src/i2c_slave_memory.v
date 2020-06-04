@@ -7,35 +7,40 @@
 
 */
 
-module I2C_SLAVE_ADDRESS_MATCH #( parameter ADDRESSLENGTH, parameter LENGTH, parameter ADDRESSNUM, parameter NBYTES)(Clk, Rst, RoW, Enable, AddressWant, AddressList, Data, Buffer);
-	input Clk;
- 	input Rst; 
-	input Enable; 
+module I2C_SLAVE_ADDRESS_MATCH #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parameter NBYTES)(Enable, Mode, RorW, Buffer, AddressFound, Data, AddressList);
+	input Enable; //
 	input Mode;
-	input [LENGTH - 1: 0]InputAddress;
-
-	integer LocalAddressID;
-	output reg [LENGTH - 1: 0]AddressFound;
-	reg [(LENGTH - 1)*MaxAddress: 0]AddressList;
-
-	input [LENGTH - 1: 0]AddressWant;//Dirección de memoria que está solicitando el master
-
-
-always @(AddressWant) begin //Cada vez que cambia la dirección de memória, comprovamos si está disponible
+	input RorW;
 	
-end
+	output reg AddressFound = 1'b0;
+
+
+	output reg [ADDRESSLENGTH || 8 - 1: 0] Buffer;
+	output reg [8*NBYTES*ADDRESSNUM: 0 ] Data;
+
+	
+	input [(ADDRESSLENGTH - 1)*ADDRESSNUM: 0]AddressList;
+	
+	
+	integer LocalAddressID = 0;
+	integer ByteCounter = 0;
+	
 
 always @(posedge Enable)//Si se activa el enable, es cuando transferimos los datos del buffer a la memoria
 begin
 	if (Mode) begin //Modo transferencia, intercambiamos datos entre el buffer y los datos de la memoria
-		if (RorW) Buffer <= Data[ByteCounter*(8 + 1):ByteCounter*8];//modo escritura, cargamos datos en el buffer
-		else Data[LocalAddressID*8*NBYTES + ByteCounter*(8 + 1):LocalAddressID*8*NBYTES*ByteCounter*8] <= Buffer;
-		if (ByteCounter < NBYTES - 1) ByteCounter = ByteCounter + 1;
+		
+		
+
+		if (RorW) Buffer <= Data[(ByteCounter+1)*(8) +:1];
+		else Data[LocalAddressID*8*NBYTES +:(ByteCounter)*(8)] <= Buffer;
+		if (ByteCounter < NBYTES - 1) ByteCounter <= ByteCounter + 1;
 	end
 	else begin //El enable también puede ser para ver si se dispone de una dirección de memoria
-		AddressFound = 1'b0;
-		for(LocalAddressID = 0; (LocalAddressID < ADDRESSNUM) ||  !AddressFound; i++) begin
-			if (AddressList[ADDRESSLENGTH*(LocalAddressID+1):ADDRESSLENGTH*(LocalAddressID) == AddressWant) AddressFound = 1'b1;
+		AddressFound <= 1'b0;
+		ByteCounter <= 0;
+		for(LocalAddressID = 0; (LocalAddressID < ADDRESSNUM) ||  !AddressFound; LocalAddressID = LocalAddressID + 1) begin
+			if (AddressList[ADDRESSLENGTH*(LocalAddressID+1):ADDRESSLENGTH*(LocalAddressID)] == Buffer[ADDRESSLENGTH:0]) AddressFound <= 1'b1;
 		end
 	end
 end

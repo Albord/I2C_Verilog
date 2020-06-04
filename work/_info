@@ -52,3 +52,25 @@ r1
 !i113 1
 R3
 n@i2@c_@s@l@a@v@e_@a@d@d@r@e@s@s_@m@a@t@c@h
+vI2C_SLAVE_ADDRESS_UC
+!s110 1591274971
+!i10b 1
+!s100 dn5WAm<:JiLOhP:nN43b60
+I?k0;938hNajJKl:H:Ek^;2
+R0
+R1
+w1591274969
+8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v
+FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v
+L0 9
+R2
+r1
+!s85 0
+31
+!s108 1591274971.000000
+!s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v|
+!s101 -O0
+!i113 1
+R3
+n@i2@c_@s@l@a@v@e_@a@d@d@r@e@s@s_@u@c
