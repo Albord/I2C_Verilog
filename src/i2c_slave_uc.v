@@ -56,7 +56,7 @@ always @(posedge SCL) begin
 				DirectionBuffer[Counter] <= SDA;
 				Counter <= Counter + 1;
 			end
-						else if (Counter == ADDRESSLENGTH) begin //Al siguiente ciclo el master especificará si la tranasferencia es read or write
+				else if (Counter == ADDRESSLENGTH) begin //Al siguiente ciclo el master especificará si la tranasferencia es read or write
 				if (HaveAddress) begin //El modulo slave nos indicará si disponemos de esa dirección en caso afirmativo, pasamos al modo de transferencia de datos
 					RorW <= SDA;
 					Counter <= 0;

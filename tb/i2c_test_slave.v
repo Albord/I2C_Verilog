@@ -1,7 +1,7 @@
 //`timescale 1 ns / 1 ps
 
 
-module testbench();
+module testbench_slave();
 reg sys_clk, rstn;
 
 parameter ADDRESSLENGTH = 8;

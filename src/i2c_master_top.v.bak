@@ -1,12 +1,12 @@
 /*
 	Autor: Albert Espiña Rojas
-	Modulo: I2C_MASTER_UC
+	Modulo: I2C_MASTER
 
 
 
 */
 
-module I2C_MASTER_UC #( parameter ADDRESSLENGTH)(CLK, RST, Start, SDA, SCL, RorW, Slave_Address, NBytes, DataToSlave, DataFromSlave);
+module I2C_MASTER #( parameter ADDRESSLENGTH)(CLK, RST, Start, SDA, SCL, RorW, Slave_Address, NBytes, DataToSlave, DataFromSlave);
 	input CLK;
 	input RST;
 	input Start;
@@ -32,12 +32,8 @@ module I2C_MASTER_UC #( parameter ADDRESSLENGTH)(CLK, RST, Start, SDA, SCL, RorW
 		ReciveData = 3'b110,
 		SendACK = 3'b111;
 		
-
-
-
-
 	
-//assign SCL = ( state > SendStart ) ? SCL : 1'b1;
+assign SCL = ( state > SendStart ) ? SCL : 1'b1;
 
 
 always @(posedge SDA) begin //Condición de stop
