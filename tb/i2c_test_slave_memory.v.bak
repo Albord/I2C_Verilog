@@ -4,7 +4,7 @@
 module testslavememory();
 
 parameter ADDRESSLENGTH = 8;
-parameter ADDRESSNUM = 2;
+parameter ADDRESSNUM = 1;
 parameter NBYTES = 2;
 
 
@@ -16,19 +16,12 @@ reg [ADDRESSLENGTH-1: 0] DirectionBuffer = 1'b0;
 wire AddressFound;
 wire[8*NBYTES*ADDRESSNUM - 1: 0 ]Data;
 wire [7:0]OutputBuffer;
-wire [7:0]InputBuffer;
-
-wire [((ADDRESSLENGTH)*ADDRESSNUM) - 1: 0]AddressList = 24'b0000111111110011;
-AddressList[7:0] = 8'b00001111;
+reg [7:0]InputBuffer = 8'b01010101;
+wire [((ADDRESSLENGTH)*ADDRESSNUM) - 1: 0]AddressList = 8'b01010101;
 
 
+I2C_SLAVE_MEMORY #( ADDRESSLENGTH, ADDRESSNUM, NBYTES) i2c_slave_memory(Enable, RorW, DirectionBuffer, InputBuffer, OutputBuffer, AddressFound, AddressList, LocalAddressID);
 
-wire SDA;
-wire SCL;
-
-
-
-module I2C_SLAVE_TOP #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parameter NBYTES)(SDA, SCL, AddressList, DirectionBuffer, InputBuffer, OutputBuffer);
 
 
 
@@ -46,7 +39,7 @@ Mode = 1'b0;
 #10
 Enable = 1'b1;
 #10
-DirectionBuffer = 8'b00001110;//Dirección correcta
+DirectionBuffer = 8'b11111111;//Dirección correcta
 Enable = 1'b0;
 #10;
 Enable = 1'b1;

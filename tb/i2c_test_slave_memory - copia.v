@@ -16,19 +16,13 @@ reg [ADDRESSLENGTH-1: 0] DirectionBuffer = 1'b0;
 wire AddressFound;
 wire[8*NBYTES*ADDRESSNUM - 1: 0 ]Data;
 wire [7:0]OutputBuffer;
-wire [7:0]InputBuffer;
-
-wire [((ADDRESSLENGTH)*ADDRESSNUM) - 1: 0]AddressList = 24'b0000111111110011;
-
+reg [7:0]InputBuffer = 1'b0;
+reg [((ADDRESSLENGTH)*ADDRESSNUM) - 1: 0]AddressList = 16'b0000111100001110;
 
 
 
-wire SDA;
-wire SCL;
+I2C_SLAVE_MEMORY #( ADDRESSLENGTH, ADDRESSNUM, NBYTES) i2c_slave_memory(Enable, Mode, RorW, DirectionBuffer, InputBuffer, OutputBuffer, AddressFound, AddressList, Data, LocalAddressID);
 
-
-
-module I2C_SLAVE_TOP #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parameter NBYTES)(SDA, SCL, AddressList, DirectionBuffer, InputBuffer, OutputBuffer);
 
 
 

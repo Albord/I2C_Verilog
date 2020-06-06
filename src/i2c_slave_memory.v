@@ -7,7 +7,7 @@
 
 */
 
-module I2C_SLAVE_MEMORY #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parameter NBYTES)(Enable, RorW, DirectionBuffer, InputBuffer, OutputBuffer, AddressFound, AddressList);
+module I2C_SLAVE_MEMORY #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parameter NBYTES)(Enable, RorW, DirectionBuffer, InputBuffer, OutputBuffer, AddressFound, AddressList, Data);
 	input Enable; //
 	input RorW;
 	input [((ADDRESSLENGTH)*ADDRESSNUM) - 1: 0]AddressList;
@@ -15,7 +15,7 @@ module I2C_SLAVE_MEMORY #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parame
 	input wire [(ADDRESSLENGTH-1): 0] DirectionBuffer;
 	input wire [7:0]InputBuffer;
 	output reg [7:0]OutputBuffer;
-	reg [8*NBYTES*ADDRESSNUM: 0 ] Data = 1'b0;
+	output reg [8*NBYTES*ADDRESSNUM - 1: 0 ] Data = 1'b0;
 	integer LocalAddressID = 0;
 	integer ByteCounter = 0;
 	
@@ -30,12 +30,16 @@ begin
 end
 
 always@(DirectionBuffer) begin
-	AddressFound = 1'b0;
+	
 	ByteCounter = 0;
 	LocalAddressID = 0;
-	for(LocalAddressID = 0; (LocalAddressID < ADDRESSNUM) &&  !AddressFound; LocalAddressID = LocalAddressID + 1) begin
+	if (AddressList[ADDRESSLENGTH*(LocalAddressID)+:8] == DirectionBuffer) AddressFound = 1'b1;
+	else AddressFound = 1'b0;
+/*
+	for(LocalAddressID = 0; (LocalAddressID < ADDRESSNUM) && !AddressFound; LocalAddressID = LocalAddressID + 1) begin
 		if (AddressList[ADDRESSLENGTH*(LocalAddressID)+:8] == DirectionBuffer) AddressFound = 1'b1;
 	end
+*/
 end
 
 
