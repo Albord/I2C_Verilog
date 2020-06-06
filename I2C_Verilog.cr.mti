@@ -18,26 +18,19 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 ** Error: (vlog-13069) D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v(92): near "EOF": syntax error, unexpected end of source code.
 
 
-} {5.0 12.0} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v}
-Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module testbench_FULL
-
-Top level modules:
-	testbench_FULL
-
-} {} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v}
+} {5.0 12.0} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v}
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module I2C_SLAVE
 
 Top level modules:
 	I2C_SLAVE
 
-} {} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_top.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_top.v}
+} {} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v}
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module I2C_MASTER
+-- Compiling module testbench_FULL
 
 Top level modules:
-	I2C_MASTER
+	testbench_FULL
 
 } {} {}} {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v} {1 {vlog -work work -stats=none {D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v}
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015

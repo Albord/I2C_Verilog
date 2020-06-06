@@ -30,16 +30,12 @@ begin
 end
 
 always@(DirectionBuffer) begin
-	
+	AddressFound = 1'b0;
 	ByteCounter = 0;
 	LocalAddressID = 0;
-	if (AddressList[ADDRESSLENGTH*(LocalAddressID)+:8] == DirectionBuffer) AddressFound = 1'b1;
-	else AddressFound = 1'b0;
-/*
-	for(LocalAddressID = 0; (LocalAddressID < ADDRESSNUM) && !AddressFound; LocalAddressID = LocalAddressID + 1) begin
+	for(LocalAddressID = 0; (LocalAddressID < ADDRESSNUM) &&  !AddressFound; LocalAddressID = LocalAddressID + 1) begin
 		if (AddressList[ADDRESSLENGTH*(LocalAddressID)+:8] == DirectionBuffer) AddressFound = 1'b1;
 	end
-*/
 end
 
 

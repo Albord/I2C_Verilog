@@ -6,11 +6,11 @@
 
 */
 
-module I2C_MASTER #( parameter ADDRESSLENGTH)(CLK, RST, Start, SDA, SCL, RorW, Slave_Address, NBytes, DataToSlave, DataFromSlave, state);
+module I2C_MASTER #( parameter ADDRESSLENGTH)(CLK, RST, Start, SDA, SCL, RorW, Slave_Address, NBytes, DataToSlave, DataFromSlave);
 	input CLK;
 	input RST;
 	input Start;
-	inout wire SDA;
+	output reg SDA;
 	output wire SCL;
 	input RorW;
 	input wire [ADDRESSLENGTH - 1:0] Slave_Address;
@@ -18,10 +18,10 @@ module I2C_MASTER #( parameter ADDRESSLENGTH)(CLK, RST, Start, SDA, SCL, RorW, S
 	reg [3:0] BytesCounter = 4'b0000;
 	input wire [7:0]DataToSlave;
 	output reg [7:0]DataFromSlave;
-	output reg [3:0]state;
+	reg ACK;
+	reg [3:0]state;
 	reg [3:0]nextstate;
 	integer Counter = 0;
-	reg sda_intern = 1'b1;
 	localparam [3:0] // 8 states are required for Moore
     		Idle = 3'b000,
 		SendStart = 3'b001,
@@ -33,93 +33,89 @@ module I2C_MASTER #( parameter ADDRESSLENGTH)(CLK, RST, Start, SDA, SCL, RorW, S
 		SendACK = 3'b111;
 		
 	
-assign SCL = ( state > SendStart ) ? CLK : 1'b1;
-assign SDA = ( sda_intern ) ? 1'bz : 1'b0;
+assign SCL = ( state > SendStart ) ? SCL : 1'b1;
 
 
 always @(posedge SDA) begin //Condición de stop
-	if (SCL) state <= 3'b000;
+	if (SCL) state <= 3'b0;
 end
 
 
-always @(RST, Counter, Start, state, SDA)
+always @(RST, Counter, Start, state, ACK)
 begin
-    
+    if (!RST) state = Idle;
    case (state)
 	Idle:
 		if (Start) nextstate = SendStart;
 	SendStart:
 		nextstate = SendDirection;
 	SendDirection:
-		if (Counter == ADDRESSLENGTH - 1) nextstate = SendRorW;
+		if (Counter == ADDRESSLENGTH) nextstate = SendRorW;
 	SendRorW:
 		nextstate = ReciveACK;
 	ReciveACK: begin
-		if (SDA || (BytesCounter == NBytes)) nextstate = Idle;
+		if (ACK || BytesCounter == NBytes -1) nextstate = Idle;
 		else if (RorW) nextstate = SendData;
 		else nextstate = SendData;
 	end
 	SendData:
-		if (Counter == 7) nextstate = ReciveACK;
+		if (Counter == 8) nextstate = ReciveACK;
 
 	ReciveData:
-		if (Counter == 7) nextstate = SendACK;
+		if (Counter == 8) nextstate = SendACK;
 	SendACK: begin
-		if (BytesCounter == NBytes) nextstate = Idle;
+		if (BytesCounter == NBytes -1) nextstate = Idle;
 		else nextstate = ReciveData;
 	end
-	endcase
-	if (!RST) nextstate = Idle;
 
+endcase
 end
 
 
 always @(posedge CLK) begin
+	
 	case (state)
 		Idle: begin
 			Counter <= 0;
-			sda_intern <= 1;
+			SDA <= 1;
 		end
 		SendStart: begin
 			Counter <= 0;
-			sda_intern <= 0;
+			SDA <= 0;
 		end
-		SendDirection: begin
+		SendDirection:
 			Counter <= Counter + 1;
-		end
-		SendRorW: begin
+		SendRorW:
 			Counter <= 0;
-		end
 		ReciveACK: begin
 			Counter <= 0;
+			ACK <= SDA; 
 		end
-		SendData: begin
+		SendData:
 			Counter <= Counter + 1;
-		end
 		ReciveData: begin
 			DataFromSlave[Counter] <= SDA;
 			Counter <= Counter + 1;
 		end
-		SendACK: begin
+		SendACK:
 			Counter <= 0;
-			sda_intern <= 1;
-		end
+		
 
 
 	endcase
 	state <= nextstate;
 end
 always @(negedge CLK) begin
+	
 	case (state)
 		SendDirection:
-			sda_intern <= Slave_Address[Counter];
+			SDA <= Slave_Address[Counter];
 		SendRorW:
-			sda_intern <= RorW;
+			SDA <= RorW;
 		SendData:
-			sda_intern <= DataToSlave[Counter];
+			SDA <= DataToSlave[Counter];
 		SendACK:
-			sda_intern <= 0;
-		
+			SDA <= 0;
 	endcase
 
 end

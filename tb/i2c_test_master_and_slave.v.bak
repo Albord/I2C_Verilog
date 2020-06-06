@@ -12,7 +12,7 @@ parameter NBYTES = 2;
 
 
 
-reg Clk = 1'b0;
+wire Clk = 1'b0;
 wire SDA;
 wire SCL;
 reg RorW = 1'b1;
