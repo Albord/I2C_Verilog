@@ -1,17 +1,13 @@
 /*
 	Autor: Albert Espiña Rojas
-	Modulo: I2C_SLAVE_ADDRESS_UC
-
-
+	Modulo: I2C_SLAVE_UC
 
 */
 
-module I2C_SLAVE_ADDRESS_UC #( parameter ADDRESSLENGTH)(SDA, SCL, HaveAddress, DirectionBuffer, InputBuffer, OutputBuffer, RorW, MemoryEnable, start, state);
-	
-	input wire SCL;
-	inout wire SDA;
+module I2C_SLAVE_UC #( parameter ADDRESSLENGTH)(Sda, Scl, HaveAddress, DirectionBuffer, InputBuffer, OutputBuffer, RorW, MemoryEnable, start, state);
+	inout wire Sda;//Pin de datos entre el maestro y los esclavos
+	output wire Scl;//Pin de reloj entre el maestro y el esclavo
 	input HaveAddress;//Input de la memoria para indicar que el dispositivo tiene la dirección de memoria solicitada
-
 	output reg [(ADDRESSLENGTH-1): 0] DirectionBuffer; //Buffer para guardar la dirección que solicita el master
 	output reg [7:0]InputBuffer; //Bufer donde irán todos los datos guardadosa a la memoria
 	input wire [7:0]OutputBuffer;// Buffer donde irán todos los datos recibidos
@@ -22,15 +18,15 @@ module I2C_SLAVE_ADDRESS_UC #( parameter ADDRESSLENGTH)(SDA, SCL, HaveAddress, D
 	output reg MemoryEnable = 1'b0; //Registro para activar la comunicación etre la memoria y la unidad de control
 	
 	output reg start = 1'b0;//Estado para activar el dispositivo slave
-	integer Counter = 1'b0;//Contador de los bits del sda, 
+	integer Counter = 1'b0;//Contador de los bits del Sda, 
 	
 	reg sda_intern = 1'b1;
 
-assign SDA = ( sda_intern ) ? 1'bz : 1'b0;
+assign Sda = ( sda_intern ) ? 1'bz : 1'b0;
 
 	
-always @(negedge SDA) begin //Condición de start
-	if (SCL) begin 
+always @(negedge Sda) begin //Condición de start
+	if (Scl) begin 
 		Counter <= 0;
 		start <= 1'b1;
 		state <= 1'b0;
@@ -38,19 +34,19 @@ always @(negedge SDA) begin //Condición de start
 		MemoryEnable <= 1'b0;
 	end
 end
-always @(posedge SDA) begin //Condición de stop
-	if (SCL) start <= 1'b0;
+always @(posedge Sda) begin //Condición de stop
+	if (Scl) start <= 1'b0;
 end
-always @(posedge SCL) begin
+always @(posedge Scl) begin
 	if (start) begin
 		if (state) begin
 			if (Counter < 8) begin//las transferencias son de byte a byte, por lo tanto hay que tener el contador también
-				if (RorW) InputBuffer[Counter] <= SDA; //guardamos el dato en el buffer ya que estamos recibiendo
+				if (RorW) InputBuffer[Counter] <= Sda; //guardamos el dato en el buffer ya que estamos recibiendo
 				Counter <= Counter + 1;	
 				MemoryEnable <= 0;
 			end
 			if (Counter == 8) begin //fin del byte de datos, hay que mirar si hemos recibido un ack o un nack en el caso de modo escritura
-				if (!RorW) MemoryEnable <= !SDA; //Si tenemos un 1 es un Nack y por lo tanto podemos pedir el siguiente dato
+				if (!RorW) MemoryEnable <= !Sda; //Si tenemos un 1 es un Nack y por lo tanto podemos pedir el siguiente dato
 				else MemoryEnable <= 1;
 				Counter <= 0;	
 			end
@@ -58,15 +54,16 @@ always @(posedge SCL) begin
 		end
 		else begin
 			if (Counter < ADDRESSLENGTH) begin //Recibiendo los datos de la dirección de memoria
-				DirectionBuffer[Counter] <= SDA;
+				DirectionBuffer[Counter] <= Sda;
 				Counter <= Counter + 1;
 			end
 			else if (Counter == ADDRESSLENGTH) begin //Al siguiente ciclo el master especificará si la tranasferencia es read or write
-				RorW <= SDA;
+				RorW <= Sda;
 				Counter <= Counter + 1;
 			end 
 			else if ((Counter == ADDRESSLENGTH + 1) && HaveAddress) begin //Al siguiente ciclo el master especificará si la tranasferencia es read or write
 				Counter <= 0;
+				if (!RorW) MemoryEnable <= 1;
 				state <= 1'b1;
 			end 
 			else begin
@@ -77,9 +74,9 @@ always @(posedge SCL) begin
 	end
 end
 
-always @(negedge SCL) begin
+always @(negedge Scl) begin
 /*
-	El flanco de bajada del clock está destinado para que el slave envíe datos a través del sda, cuando sea necesario
+	El flanco de bajada del clock está destinado para que el slave envíe datos a través del Sda, cuando sea necesario
 */
 	sda_intern <= 1;
 	if (state) begin
@@ -89,11 +86,7 @@ always @(negedge SCL) begin
 		else if (Counter == 8 && RorW) sda_intern <= 1'b0;//modo lectura, enviamos nosotros un ack
 	end
 	else begin
-		if (Counter == ADDRESSLENGTH + 1) begin //Al siguiente ciclo el master especificará si la tranasferencia es read or write
-			if (HaveAddress) begin //El modulo slave nos indicará si disponemos de esa dirección en caso afirmativo, pasamos al modo de transferencia de datos
-				sda_intern <= 1'b0;
-			end
-		end
+		if (Counter == ADDRESSLENGTH + 1 && HaveAddress) sda_intern <= 1'b0;
 	end
 end
 endmodule

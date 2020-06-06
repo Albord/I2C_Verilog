@@ -11,7 +11,7 @@ wire RorW;
 wire MemoryEnable;
 
 
-output wire [8*NBYTES*ADDRESSNUM: 0 ] Data;
+output wire [8*NBYTES*ADDRESSNUM - 1: 0 ] Data;
 output wire state;
 output wire start;
 
