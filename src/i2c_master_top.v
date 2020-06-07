@@ -38,7 +38,7 @@ assign Sda = ( sda_intern ) ? 1'bz : 1'b0;//Si sda es 0 asignamos el valor, si n
 
 
 always @(posedge Sda) begin //Condición de stop flanco de subida del sda y scl positivo
-	if (Scl) State <= 3'b001;
+	if (Scl) State <= 3'b000;
 end
 
 

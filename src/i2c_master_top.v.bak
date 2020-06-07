@@ -119,18 +119,18 @@ always @(posedge Clk) begin//Acciones vamos a realizar en el flanco de subida de
 	endcase
 	State <= nextstate;//actualizamos el estado de la máquina
 end
-always @(negedge Clk) begin
+always @(negedge Clk) begin//En el flanco de subida enviamos los datos normales del sda
 	sda_intern <= 1;
 	case (State)
 		SENDSTOP:
-			sda_intern <= 0;
-		SENDDIRECTION:
-			if (counter < 8) sda_intern <= Slave_Address[counter];
-			else sda_intern <= RorW;
+			sda_intern <= 0;//ponemos el sda a 0 para asegurarnos un flanco de subida al realizar el stopbit
+		SENDDIRECTION://si el contador no ha llegado al tamaño de la dirección enviamos la dirección
+			if (counter < ADDRESSLENGTH) sda_intern <= Slave_Address[counter];
+			else sda_intern <= RorW;//si no, el bit para indicar si enviamos o recibimos datos
 		SENDDATA:
-			sda_intern <= DataToSlave[counter];
+			sda_intern <= DataToSlave[counter];//enviamos los datos al slave
 		SENDACK:
-			sda_intern <= 0;
+			sda_intern <= 0;//enviamos un ack que es un estado bajo del sda, si no sería un nack
 		
 	endcase
 

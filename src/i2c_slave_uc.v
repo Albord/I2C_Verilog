@@ -5,7 +5,7 @@
 */
 
 module I2C_SLAVE_UC #( parameter ADDRESSLENGTH)(Sda, Scl, HaveAddress, DirectionBuffer, InputBuffer, OutputBuffer, RorW, MemoryEnable, start, state);
-	inout wire Sda;//Pin de datos entre el maestro y los esclavos
+	inout Sda;//Pin de datos entre el maestro y los esclavos
 	output wire Scl;//Pin de reloj entre el maestro y el esclavo
 	input HaveAddress;//Input de la memoria para indicar que el dispositivo tiene la dirección de memoria solicitada
 	output reg [(ADDRESSLENGTH-1): 0] DirectionBuffer; //Buffer para guardar la dirección que solicita el master
@@ -58,6 +58,7 @@ always @(posedge Scl) begin
 				Counter <= Counter + 1;
 			end 
 			else if ((Counter == ADDRESSLENGTH + 1) && HaveAddress) begin //si tenemos la dirección que solicita el master
+				Counter <= 0;
 				if (!RorW) MemoryEnable <= 1;//si se va a enviar los datos, cargamos la memoria de manera previa
 				state <= 1'b1;
 			end 

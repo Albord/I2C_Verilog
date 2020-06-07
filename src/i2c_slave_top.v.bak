@@ -17,7 +17,7 @@ output wire start;
 
 
 
-I2C_SLAVE_ADDRESS_UC #( ADDRESSLENGTH) slave_uc(SDA, SCL, HaveAddress, DirectionBuffer, InputBuffer, OutputBuffer, RorW, MemoryEnable, start, state);
+I2C_SLAVE_UC #( ADDRESSLENGTH) slave_uc(SDA, SCL, HaveAddress, DirectionBuffer, InputBuffer, OutputBuffer, RorW, MemoryEnable, start, state);
 
 I2C_SLAVE_MEMORY #( ADDRESSLENGTH, ADDRESSNUM, NBYTES) slave_memory(MemoryEnable, RorW, DirectionBuffer, InputBuffer, OutputBuffer, HaveAddress, AddressList, Data);
 
