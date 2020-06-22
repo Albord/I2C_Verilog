@@ -28,6 +28,7 @@ always @(negedge Sda) begin //Condición de start
 		state <= 1'b0;
 		RorW <= 1'b0;
 		MemoryEnable <= 1'b0;
+		DirectionBuffer[(ADDRESSLENGTH-1): 0] <= 0;
 	end
 end
 always @(posedge Sda) begin //Condición de stop
@@ -42,8 +43,8 @@ always @(posedge Scl) begin
 				MemoryEnable <= 0;//Como guardamos los datos en el buffer de 8 en 8 bits no es necesaria tenerla activada
 			end
 			if (Counter == 8) begin //fin del byte de datos, hay que mirar si hemos recibido un ack
-				if (!RorW) MemoryEnable <= !Sda; //Si tenemos un 0 es un ack y por lo tanto podemos pedir el siguiente dato
-				else MemoryEnable <= 1;//cuando recibimos datos, siempre lo guardamos en la memoria, ya que confirma el slave
+				if (!RorW && Sda) start <= 1'b0; //Si estamos enviando y recibimos un nack paramos el esclavo
+				else MemoryEnable <= 1;//Si estamos transmitiendo o recibimos un nack, podemos transfeir el dato del buffer a la memoria
 				Counter <= 0;	
 			end
 		
@@ -74,16 +75,18 @@ always @(negedge Scl) begin
 /*
 	El flanco de bajada del clock está destinado para que el slave envíe datos a través del Sda, cuando sea necesario
 */
-	sda_intern <= 1;//ponemos el sda a 1 por defecto
-	if (state) begin
-		//En este caso enviamos ráfagas de 8 bits y esperamos a recibir el ack si estamos escribiendo
-		if (Counter < 8 && !RorW) sda_intern <= OutputBuffer[Counter];
-		 //fin del byte de datos, hay enviar o recibir un ack y de paso guardamos el buffer en la memoria
-		else if (Counter == 8 && RorW) sda_intern <= 1'b0;//modo lectura, enviamos nosotros un ack
-	end
-	else begin
-		//ack para indicar que este eslavo tiene la dirección de memoria solicitada, esto se ejecuta antes que el pasar de estado
-		if (Counter == ADDRESSLENGTH + 1 && HaveAddress) sda_intern <= 1'b0;
+	if (start) begin
+		sda_intern <= 1;//ponemos el sda a 1 por defecto
+		if (state) begin
+			//En este caso enviamos ráfagas de 8 bits y esperamos a recibir el ack si estamos escribiendo
+			if (Counter < 8 && !RorW) sda_intern <= OutputBuffer[Counter];
+			 //fin del byte de datos, hay enviar o recibir un ack y de paso guardamos el buffer en la memoria
+			else if (Counter == 8 && RorW) sda_intern <= 1'b0;//modo lectura, enviamos nosotros un ack
+		end
+		else begin
+			//ack para indicar que este eslavo tiene la dirección de memoria solicitada, esto se ejecuta antes que el pasar de estado
+			if (Counter == ADDRESSLENGTH + 1 && HaveAddress) sda_intern <= 1'b0;
+		end
 	end
 end
 endmodule

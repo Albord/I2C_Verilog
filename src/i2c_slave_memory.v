@@ -19,7 +19,7 @@ module I2C_SLAVE_MEMORY #( parameter ADDRESSLENGTH, parameter ADDRESSNUM, parame
 	input wire [7:0]InputBuffer;//Bufer donde irán todos los datos guardadosa a la memoriA
 	output reg [7:0]OutputBuffer;// Buffer donde irán todos los datos recibidos
 	output reg [8*NBYTES*ADDRESSNUM - 1: 0 ] Data = 1'b0;//Memoria del esclavo donde irán todos los datos guardados
-	integer LocalAddressID = 0;//Variable para hacer que un eslavo pueda tener diferentes direcciónes
+	integer LocalAddressID = 0;//Variable para hacer que un eslavo pueda tener diferentes direcciónes(desactivado)
 	integer ByteCounter = 0;//Contador de bytes que lleva una transferencia, para no exceder el tamaño de la memoria
 	
 
@@ -33,10 +33,8 @@ begin
 end
 
 always@(DirectionBuffer) begin
-	
 	ByteCounter = 0;//Si la dirección cambia, ponemos el dato el bytecounter a 0
-	LocalAddressID = 0;
-	if (AddressList[ADDRESSLENGTH*(LocalAddressID)+:8] == DirectionBuffer) AddressFound = 1'b1;//si coindice la direcció	
+	if (AddressList[ADDRESSLENGTH-1:0] == DirectionBuffer) AddressFound = 1'b1;//si coindice la direcció	
 	else AddressFound = 1'b0;//indicamos si es correcta o no
 /* código experimental para probar el sistema de varias direcciones, no obstante el for es problematico en verilog
 	for(LocalAddressID = 0; (LocalAddressID < ADDRESSNUM) && !AddressFound; LocalAddressID = LocalAddressID + 1) begin

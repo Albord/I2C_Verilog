@@ -28,6 +28,7 @@ always @(negedge Sda) begin //Condición de start
 		state <= 1'b0;
 		RorW <= 1'b0;
 		MemoryEnable <= 1'b0;
+		DirectionBuffer[(ADDRESSLENGTH-1): 0] <= 0;
 	end
 end
 always @(posedge Sda) begin //Condición de stop
@@ -58,6 +59,7 @@ always @(posedge Scl) begin
 				Counter <= Counter + 1;
 			end 
 			else if ((Counter == ADDRESSLENGTH + 1) && HaveAddress) begin //si tenemos la dirección que solicita el master
+				Counter <= 0;
 				if (!RorW) MemoryEnable <= 1;//si se va a enviar los datos, cargamos la memoria de manera previa
 				state <= 1'b1;
 			end 
@@ -73,6 +75,7 @@ always @(negedge Scl) begin
 /*
 	El flanco de bajada del clock está destinado para que el slave envíe datos a través del Sda, cuando sea necesario
 */
+if (start) begin
 	sda_intern <= 1;//ponemos el sda a 1 por defecto
 	if (state) begin
 		//En este caso enviamos ráfagas de 8 bits y esperamos a recibir el ack si estamos escribiendo
@@ -84,5 +87,6 @@ always @(negedge Scl) begin
 		//ack para indicar que este eslavo tiene la dirección de memoria solicitada, esto se ejecuta antes que el pasar de estado
 		if (Counter == ADDRESSLENGTH + 1 && HaveAddress) sda_intern <= 1'b0;
 	end
+end
 end
 endmodule

@@ -9,23 +9,23 @@ z2
 cModel Technology
 dD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C
 vI2C_MASTER
-Z0 !s110 1591485762
+Z0 !s110 1592787007
 !i10b 1
-!s100 BPFEX533SHIJGa_6F^IIz1
-I<feMbYjGNQ9k8;J:S[c320
+!s100 PUnD;8JZL1g0<ATkJoVGo3
+IojPHz>0j9OF3FRS2DQGPD2
 Z1 VDg1SIo80bB@j0V0VzS_@n1
-Z2 dC:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog
-w1591484349
-8C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_master_top.v
-FC:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_master_top.v
+Z2 dD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog
+w1592785213
+8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_top.v
+FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_top.v
 L0 9
 Z3 OP;L;10.4a;61
 r1
 !s85 0
 31
-Z4 !s108 1591485762.000000
-!s107 C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_master_top.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_master_top.v|
+Z4 !s108 1592787007.000000
+!s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_top.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_top.v|
 !s101 -O0
 !i113 1
 Z5 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
@@ -36,7 +36,7 @@ vI2C_MASTER_UC
 !s100 `C=:`2HLdB_>Nk1Jn=l[93
 Iem1>Jcl?agjbJRAAI:B`I1
 R1
-Z6 dD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog
+R2
 w1591365926
 8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_uc.v
 FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_master_uc.v
@@ -58,7 +58,7 @@ vI2C_SHIFT_REGISTER
 !s100 jV6kZQjni]:g_?0>ko?=R0
 IHTci_O2USfajO8PG9^ZJl3
 R1
-R6
+R2
 w1588629877
 8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_shift_register.v
 FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_shift_register.v
@@ -77,21 +77,21 @@ n@i2@c_@s@h@i@f@t_@r@e@g@i@s@t@e@r
 vI2C_SLAVE
 R0
 !i10b 1
-!s100 e2LSQQF>?3JYj83hWEhfL3
-IEFNAKT0Bb6KB367kF>JI63
+!s100 H`bHGYgakQL9kndYCXaD>1
+I@:6f62j=5@70JcZA3z`5d1
 R1
 R2
-w1591485076
-8C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_top.v
-FC:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_top.v
+w1592684352
+Z6 8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v
+Z7 FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v
 L0 1
 R3
 r1
 !s85 0
 31
 R4
-!s107 C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_top.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_top.v|
+Z8 !s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v|
+Z9 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v|
 !s101 -O0
 !i113 1
 R5
@@ -102,18 +102,18 @@ vI2C_SLAVE_ADDRESS_MATCH
 !s100 bP5Bz]hSmlI^<g`m8dg5h3
 IWK<Uh89mB4e]>=SWGhXD=1
 R1
-R6
+R2
 w1591285122
-8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_memory.v
-FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_memory.v
-Z7 L0 10
+Z10 8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_memory.v
+Z11 FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_memory.v
+Z12 L0 10
 R3
 r1
 !s85 0
 31
 !s108 1591285135.000000
-!s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_memory.v|
-!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_memory.v|
+Z13 !s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_memory.v|
+Z14 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_memory.v|
 !s101 -O0
 !i113 1
 R5
@@ -124,40 +124,40 @@ vI2C_SLAVE_ADDRESS_UC
 !s100 CUcZPf4Ya:a?2`;cS4N3A0
 I1`LBa?eY4DUM>kRh^3LhL0
 R1
-R6
+R2
 w1591477596
-8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v
-FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v
+Z15 8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v
+Z16 FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v
 L0 9
 R3
 r1
 !s85 0
 31
 !s108 1591477598.000000
-!s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v|
-!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v|
+Z17 !s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v|
+Z18 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_uc.v|
 !s101 -O0
 !i113 1
 R5
 n@i2@c_@s@l@a@v@e_@a@d@d@r@e@s@s_@u@c
 vI2C_SLAVE_MEMORY
-R0
+!s110 1592787006
 !i10b 1
-!s100 XlN97<g8dRFzldR81=_dn2
-I[`kkCaP890?:k1?Mb9JK[0
+!s100 O`b[YEn[DkjHJOQJKiUB]0
+IS_3;CYTMa7@[cI0leBFYB2
 R1
 R2
-w1591482116
-8C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_memory.v
-FC:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_memory.v
-R7
+w1592683452
+R10
+R11
+R12
 R3
 r1
 !s85 0
 31
-R4
-!s107 C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_memory.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_memory.v|
+!s108 1592787006.000000
+R13
+R14
 !s101 -O0
 !i113 1
 R5
@@ -168,18 +168,18 @@ vI2C_SLAVE_TOP
 !s100 FGYRa@K8I8@@n0=;1BXfg2
 I;]WQMHM?DI:Z[H9_5DT4m1
 R1
-R6
+R2
 w1591306739
-8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v
-FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v
+R6
+R7
 L0 1
 R3
 r1
 !s85 0
 31
 !s108 1591366061.000000
-!s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v|
-!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/src/i2c_slave_top.v|
+R8
+R9
 !s101 -O0
 !i113 1
 R5
@@ -187,56 +187,56 @@ n@i2@c_@s@l@a@v@e_@t@o@p
 vI2C_SLAVE_UC
 R0
 !i10b 1
-!s100 l;jC8DVXa7jP>1j568V6a2
-I9fHQY_AOXbLHNX5e3dzI50
+!s100 coiDg@1=L1bhE[`0mFJmR2
+Iihbm=dzG`gED10zogn3FC2
 R1
 R2
-w1591485760
-8C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_uc.v
-FC:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_uc.v
+w1592691209
+R15
+R16
 L0 7
 R3
 r1
 !s85 0
 31
 R4
-!s107 C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_uc.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/src/i2c_slave_uc.v|
+R17
+R18
 !s101 -O0
 !i113 1
 R5
 n@i2@c_@s@l@a@v@e_@u@c
 vtestbench
-!s110 1591485763
+R0
 !i10b 1
-!s100 Kd^TTZ0@nUPRU_OaCBo[A1
-Im9T6;]URc5>:3h@lU7Q0o1
+!s100 XPRo4@1LVIek2aXnT_d2F1
+IVmL05D6;IMHcfaUaV>eCn0
 R1
 R2
-w1591484713
-8C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v
-FC:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v
-L0 4
+w1592787004
+Z19 8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v
+Z20 FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v
+L0 8
 R3
 r1
 !s85 0
 31
 R4
-!s107 C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v|
-!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Albert/Documents/Estudio/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v|
+!s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v|
+Z21 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v|
 !s101 -O0
 !i113 1
 R5
 vtestbench_FULL
-Z8 !s110 1591478879
+Z22 !s110 1591478879
 !i10b 1
 !s100 Wc]cEZjHNYIaliQU8FaI41
 IGGoTFQBkdI>OOlD`6i21L3
 R1
-R6
+R2
 w1591445428
-8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v
-FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v
+R19
+R20
 L0 4
 R3
 r1
@@ -244,18 +244,18 @@ r1
 31
 !s108 1591478879.000000
 !s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v|
-!s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_master_and_slave.v|
+R21
 !s101 -O0
 !i113 1
 R5
 ntestbench_@f@u@l@l
 vtestbench_slave
-R8
+R22
 !i10b 1
 !s100 >aJmRUCB9Gc_g;0UL2H3@0
 I=iX84Sn`Ro;oOYC<<2OM11
 R1
-R6
+R2
 w1591308594
 8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave.v
 FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave.v
@@ -264,7 +264,7 @@ R3
 r1
 !s85 0
 31
-Z9 !s108 1591478878.000000
+Z23 !s108 1591478878.000000
 !s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave.v|
 !s101 -O0
@@ -276,7 +276,7 @@ vtestslavememory
 !s100 6f;;[dP8Lo:`XkLlXWjRQ1
 ISf:_GdaBjc[]3N4aRcEdI2
 R1
-R6
+R2
 w1591441404
 8D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v
 FD:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v
@@ -285,7 +285,7 @@ R3
 r1
 !s85 0
 31
-R9
+R23
 !s107 D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Users/Albert/Documents/Estudio/Semestre 8/DSSD/I2C_Verilog/tb/i2c_test_slave_memory.v|
 !s101 -O0

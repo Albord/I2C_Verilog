@@ -36,18 +36,16 @@ module I2C_MASTER #( parameter ADDRESSLENGTH)(Clk, Rst, Start, Sda, Scl, RorW, S
 assign Scl = ( State == IDLE ) ? 1'b1 : Clk;//Si el estado es ausente, no hace falta generar el SCL
 assign Sda = ( sda_intern ) ? 1'bz : 1'b0;//Si sda es 0 asignamos el valor, si no, no modifcamos el valor del sda
 
-
-always @(posedge Sda) begin //Condición de stop flanco de subida del sda y scl positivo
-	if (Scl) State <= 3'b001;
-end
-
+//Condición de stop flanco de subida del sda y scl positivo y volvemos al estado 0
+always @(posedge Sda) if (Scl) State <= 3'b000;
 
 always @(Rst, counter, Start, State, Sda)//Always para calcular el siguiente estado
 begin
     
    case (State)
 	IDLE:
-		if (Start) nextstate = SENDSTART;//si el start está en alto, podemos comenzar e enviar el start bit
+		if (Start) nextstate = SENDSTART;//si el start está en alto, podemos comenzar e enviar el start bi
+		else IDLE;
 	SENDSTOP:
 		nextstate = IDLE; //enviamos el stop bit y ya podemos pasar al estado de espera
 	SENDSTART:
@@ -107,15 +105,12 @@ always @(posedge Clk) begin//Acciones vamos a realizar en el flanco de subida de
 		GETDATA: begin
 			DataFromSlave[counter] <= Sda;//recibimos los datos
 			counter <= counter + 1;//incrementamos el contador en 1 para guardar el proóximo dato en la siguiente posició
-			Bytescounter <= 4'b0000;
+			Bytescounter <= Bytescounter;
 		end
 		SENDACK: begin
 			counter <= 0;
-			sda_intern <= 1;
 			Bytescounter <= Bytescounter + 1;
 		end
-
-
 	endcase
 	State <= nextstate;//actualizamos el estado de la máquina
 end
@@ -130,7 +125,7 @@ always @(negedge Clk) begin//En el flanco de subida enviamos los datos normales 
 		SENDDATA:
 			sda_intern <= DataToSlave[counter];//enviamos los datos al slave
 		SENDACK:
-			sda_intern <= 0;//enviamos un ack que es un estado bajo del sda, si no sería un nack
+			if (Bytescounter < NBytes) sda_intern <= 0;//enviamos un ack que es un estado bajo del sda, si no sería un nack
 		
 	endcase
 
